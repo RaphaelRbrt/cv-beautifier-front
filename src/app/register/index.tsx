@@ -3,6 +3,12 @@ import React, { useState } from 'react';
 import { client } from '../lib/apollo';
 import { gql } from '@apollo/client';
 
+type RegisterResponse = {
+  register: { token: string; email: string; userId: string };
+};
+
+type RegisterVariables = { email: string; password: string };
+
 const REGISTER = gql`
 mutation($email:String!,$password:String!){ register(email:$email,password:$password){ token email userId } }
 `;
@@ -14,8 +20,10 @@ export default function RegisterPage(){
   const submit=async(e:React.FormEvent)=>{
     e.preventDefault();
     try{
-      const {data}=await client.mutate({mutation:REGISTER,variables:{email,password}});
-      localStorage.setItem('token',data.register.token);
+      const {data}=await client.mutate<RegisterResponse,RegisterVariables>({mutation:REGISTER,variables:{email,password}});
+      const token=data?.register.token;
+      if(!token) throw new Error('Missing token');
+      localStorage.setItem('token',token);
       location.href='/cv-beautifier/profile';
     }catch(err:any){setError('Erreur inscription');}
   };

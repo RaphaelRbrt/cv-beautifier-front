@@ -2,7 +2,20 @@
 import React, { useEffect, useState } from 'react';
 import { client } from '../lib/apollo';
 import { gql } from '@apollo/client';
-
+type MeQuery = { me: string | null };
+type p = {
+  data: {
+    userProfile: {
+      fullName?: string;
+      title?: string;
+      summary?: string;
+      skills?: string[];
+      gender?: string;
+      tone?: string;
+      profilePhotoUrl?: string;
+    } | null;
+  } | null;
+};
 const ME = gql`{ me }`;
 const PROFILE = gql`query($userId:Int!){ userProfile(userId:$userId){ id fullName: full_name title summary } }`;
 
@@ -12,10 +25,10 @@ export default function HomePage() {
     (async()=>{
       try{
         const me=await client.query({query:ME,fetchPolicy:'no-cache'});
-        if(!me.data.me){ location.href='/cv-beautifier/login'; return; }
+        if(!(me.data as MeQuery)?.me){ location.href='/cv-beautifier/login'; return; }
         const userId=1;
         const p=await client.query({query:PROFILE,variables:{userId},fetchPolicy:'no-cache'});
-        const prof=p.data.userProfile;
+        const prof=(p as p)?.data?.userProfile;
         setNeedsProfile(!prof || !prof.fullName || !prof.title);
       }catch{}
     })();
