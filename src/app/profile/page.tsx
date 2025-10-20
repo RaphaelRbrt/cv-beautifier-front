@@ -141,7 +141,6 @@ export default function Page() {
     setSuccess(false);
 
     try {
-      // Validation basique
       if (!fullName.trim()) {
         throw new Error('Le nom complet est requis');
       }
@@ -179,7 +178,6 @@ export default function Page() {
       }
 
       setSuccess(true);
-      
       setTimeout(() => {
         window.location.href = '/cv-beautifier';
       }, 1500);
@@ -315,3 +313,5 @@ export default function Page() {
     </main>
   );
 }
+
+
