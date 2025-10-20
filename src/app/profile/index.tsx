@@ -64,7 +64,7 @@ const GET_PROFILE = gql`
   }
 `;
 
-export default function ProfilePage() {
+export default function Page() {
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
   const [title, setTitle] = useState('');

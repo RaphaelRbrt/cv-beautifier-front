@@ -13,7 +13,7 @@ const REGISTER = gql`
 mutation($email:String!,$password:String!){ register(email:$email,password:$password){ token email userId } }
 `;
 
-export default function RegisterPage(){
+export default function Page(){
   const [email,setEmail]=useState('');
   const [password,setPassword]=useState('');
   const [error,setError]=useState('');

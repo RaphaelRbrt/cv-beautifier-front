@@ -13,7 +13,7 @@ const LOGIN = gql`
 mutation($email:String!,$password:String!){ login(email:$email,password:$password){ token email userId } }
 `;
 
-export default function LoginPage(){
+export default function Page(){
   const [email,setEmail]=useState('');
   const [password,setPassword]=useState('');
   const [error,setError]=useState('');
