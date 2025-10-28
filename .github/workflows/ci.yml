@@ -22,24 +22,24 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: '24'
           cache: 'npm'
-          cache-dependency-path: ${{ env.WORKING_DIR }}/package-lock.json
+          cache-dependency-path: cv-beautifier-front/package-lock.json
 
       - name: Install dependencies
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: cv-beautifier-front
         run: npm ci
 
       - name: Type check
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: cv-beautifier-front
         run: npm run type-check
 
       - name: Lint
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: cv-beautifier-front
         run: npm run lint
 
       - name: Format check
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: cv-beautifier-front
         run: npm run format:check
 
   build:
@@ -54,16 +54,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: '24'
           cache: 'npm'
-          cache-dependency-path: ${{ env.WORKING_DIR }}/package-lock.json
+          cache-dependency-path: cv-beautifier-front/package-lock.json
 
       - name: Install dependencies
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: cv-beautifier-front
         run: npm ci
 
       - name: Build
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: cv-beautifier-front
         run: npm run build
         env:
           NODE_ENV: production
