@@ -20,8 +20,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: cv-beautifier-front/package-lock.json
 
       - working-directory: cv-beautifier-front
         run: npm ci
@@ -46,8 +44,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: cv-beautifier-front/package-lock.json
 
       - working-directory: cv-beautifier-front
         run: npm ci
