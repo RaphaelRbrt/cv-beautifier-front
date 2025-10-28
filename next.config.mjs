@@ -7,13 +7,13 @@ const isProduction = process.env.NODE_ENV === 'production';
 let nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
-  basePath: isProduction ? '/cv-beautifier' : '',
-  assetPrefix: isProduction ? '/cv-beautifier' : '',
+  basePath: "/",
+  assetPrefix: "/",
   async rewrites() {
     const backendOrigin = process.env.BACKEND_ORIGIN || 'http://localhost:4000';
     return [
       {
-        source: '/cv-beautifier-backend/:path*',
+        source: '/api/:path*',
         destination: `${backendOrigin}/:path*`
       }
     ];

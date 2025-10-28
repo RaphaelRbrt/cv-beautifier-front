@@ -10,7 +10,7 @@ import { getErrorMessage } from '@/errors'
 import { REFRESH_TOKEN } from '@/graphql'
 
 const uploadLink = new UploadHttpLink({
-  uri: process.env.NEXT_PUBLIC_GRAPHQL_URI || '/cv-beautifier-backend/graphql',
+  uri: process.env.NEXT_PUBLIC_GRAPHQL_URI || '/api/graphql',
   credentials: 'include',
   headers: {
     'Apollo-Require-Preflight': 'true',
