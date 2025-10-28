@@ -6,7 +6,7 @@ import { createVanillaExtractPlugin } from '@vanilla-extract/next-plugin';
 let nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
-  basePath: "/",
+  basePath: "",
   assetPrefix: "/",
   async rewrites() {
     const backendOrigin = process.env.BACKEND_ORIGIN || 'http://localhost:4000';
