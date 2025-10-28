@@ -22,7 +22,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - working-directory: cv-beautifier-front
-        run: npm ci
+        run: npm i
 
       - working-directory: cv-beautifier-front
         run: npm run type-check
@@ -46,7 +46,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - working-directory: cv-beautifier-front
-        run: npm ci
+        run: npm i
 
       - working-directory: cv-beautifier-front
         run: npm run build
