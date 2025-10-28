@@ -96,8 +96,8 @@ jobs:
 
       - name: Deploy to Kubernetes
         env:
-          WEBHOOK_TOKEN: ${{ secrets.VPS_TOKEN }}
-          VPS_SERVER: ${{ secrets.VPS_SERVER }}
+          WEBHOOK_TOKEN: ${{ secrets.CVBEAUTIFIER_WEBHOOK_TOKEN }}
+          VPS_SERVER: ${{ secrets.CVBEAUTIFIER_VPS_SERVER }}
         run: |
           curl -sS ${VPS_SERVER}/healthz
           curl -sS -X POST ${VPS_SERVER}/deploy \
