@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+echo "\n📝 Checking staged files with lint-staged..."
+npx lint-staged
+
+if [ $? -ne 0 ]; then
+  echo "❌ Lint-staged failed. Please fix the errors and try again."
+  exit 1
+fi
+
+echo "\n✅ All pre-commit checks passed!"

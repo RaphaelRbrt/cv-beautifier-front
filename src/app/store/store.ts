@@ -1,18 +1,47 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { configureStore, combineReducers, createSlice } from '@reduxjs/toolkit'
+import errorsReducer from './errorsSlice'
+import authReducer from './authSlice'
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
-const rootReducer = combineReducers({});
+// Slice minimal pour garantir un reducer valide
+const appSlice = createSlice({
+  name: 'app',
+  initialState: { initialized: true },
+  reducers: {},
+})
 
-const persistConfig = { key: 'root', storage, whitelist: [] };
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const rootReducer = combineReducers({
+  app: appSlice.reducer,
+  errors: errorsReducer,
+  auth: authReducer,
+})
 
-export const store = configureStore({ reducer: persistedReducer });
-export const persistor = persistStore(store);
+const persistConfig = { key: 'root', storage, whitelist: ['auth'] }
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-export const useAppDispatch: () => AppDispatch = useDispatch;
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+})
+export const persistor = persistStore(store)
 
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
