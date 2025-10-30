@@ -7,8 +7,8 @@ export default function Logo() {
     <Image
       src="/logo.svg"
       alt="CVbeautifier"
-      width={180}
-      height={40}
+      width={185}
+      height={37}
       style={{ display: 'block' }}
     />
   )

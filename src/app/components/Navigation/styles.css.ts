@@ -8,13 +8,14 @@ const fadeIn = keyframes({
 
 export const header = style({
   display: 'flex',
+  minWidth: '100vw',
+  position: 'fixed',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: `${vars.space.xl} ${vars.space['3xl']}`,
-  maxWidth: '1400px',
+  padding: `18px 22px 18px 22px`,
+  maxWidth: '100%',
   margin: '0 auto',
   animation: `${fadeIn} 0.6s ${vars.transition.easing.out}`,
-  position: 'relative',
   zIndex: vars.zIndex.sticky,
 })
 
@@ -25,11 +26,6 @@ export const logo = style({
   display: 'flex',
   alignItems: 'center',
   gap: vars.space.lg,
-})
-
-export const logoImage = style({
-  width: '140px',
-  height: 'auto',
 })
 
 export const headerRight = style({
@@ -63,11 +59,11 @@ export const burgerLine = style({
 })
 
 export const connexionButton = style({
-  padding: `${vars.space.md} ${vars.space['2xl']}`,
+  padding: `0`,
   backgroundColor: 'transparent',
   border: 'none',
   color: '#fff',
-  fontSize: 'clamp(0.9rem, 1.5vw, 1.1rem)',
+  fontSize: '1.2rem',
   fontWeight: vars.font.weight.medium,
   cursor: 'pointer',
   fontFamily: vars.font.family.display,

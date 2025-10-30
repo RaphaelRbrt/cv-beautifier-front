@@ -17,6 +17,7 @@ export { default as TimelineCard } from './TimelineCard'
 export { default as StickySubtitle } from './TimelineCard/StickySubtitle'
 export { Modal } from './Modal'
 export { default as AddButton } from './AddButton'
+export { Footer } from './Footer'
 
 // Steps components
 export { Steps } from './Steps'

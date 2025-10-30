@@ -40,6 +40,7 @@ globalStyle('html, body', {
   WebkitFontSmoothing: 'antialiased',
   MozOsxFontSmoothing: 'grayscale',
   textRendering: 'optimizeLegibility',
+  height: 'max-content',
 })
 
 // Improve media defaults

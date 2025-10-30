@@ -19,22 +19,12 @@ export const landingContainer = style({
 export const contentWrapper = style({
   position: 'relative',
   zIndex: vars.zIndex.dropdown,
-  padding: `${vars.space.xl} ${vars.space['3xl']}`,
-  maxWidth: '1400px',
+  //padding: `${vars.space.xl} ${vars.space['3xl']}`,
+  maxWidth: '100%',
   margin: '0 auto',
   minHeight: '100vh',
   display: 'flex',
   flexDirection: 'column',
-})
-
-export const header = style({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  marginBottom: vars.space['2xl'],
-  paddingTop: vars.space.md,
-  animation: `${fadeIn} 0.6s ${vars.transition.easing.out}`,
-  flexShrink: 0,
 })
 
 export const logo = style({
@@ -95,30 +85,65 @@ export const heroSection = style({
   marginBottom: vars.space['4xl'],
   animation: `${fadeIn} 0.8s ${vars.transition.easing.out} 0.2s backwards`,
   flex: '0 1 auto',
-  paddingLeft: vars.space['5xl'],
+  paddingLeft: '3.5rem',
+  paddingRight: '3.5rem',
+  '@media': {
+    'screen and (max-width: 1300px)': {
+      paddingLeft: '3rem',
+      paddingRight: '3rem',
+    },
+    'screen and (max-width: 1200px)': {
+      paddingLeft: '2rem',
+      paddingRight: '2rem',
+    },
+    'screen and (max-width: 1100px)': {
+      paddingLeft: '1rem',
+      paddingRight: '1rem',
+    },
+    'screen and (max-width: 1000px)': {
+      paddingLeft: '0.5rem',
+      paddingRight: '0.5rem',
+    },
+    'screen and (max-width: 800px)': {
+      paddingLeft: '0',
+      paddingRight: '0',
+    },
+  },
 })
 
 export const mainTitle = style({
-  fontSize: '6.3rem',
+  fontSize: '8.35rem',
   fontWeight: vars.font.weight.extrabold,
   color: vars.color.text.primary,
-  lineHeight: vars.font.lineHeight.tight,
-  marginBottom: vars.space['3xl'],
-  marginTop: '2vh',
-  letterSpacing: '-0.02em',
+  lineHeight: '8.8rem',
+  marginBottom: '2.8rem',
+  marginTop: '4rem',
+  letterSpacing: '-2px',
   fontFamily: vars.font.family.display,
   '@media': {
-    'screen and (max-width: 1104px)': {
-      fontSize: '6rem',
+    'screen and (max-width: 1620px)': {
+      fontSize: '7.35rem',
+      lineHeight: '7.8rem',
     },
-    'screen and (max-width: 1057px)': {
-      fontSize: '5rem',
+    'screen and (max-width: 1150px)': {
+      fontSize: '6.35rem',
+      lineHeight: '6.8rem',
     },
-    'screen and (max-width: 895px)': {
-      fontSize: '4rem',
+    'screen and (max-width: 980px)': {
+      fontSize: '5.35rem',
+      lineHeight: '5.8rem',
     },
-    'screen and (max-width: 734px)': {
-      fontSize: '3rem',
+    'screen and (max-width: 840px)': {
+      fontSize: '4.35rem',
+      lineHeight: '4.8rem',
+    },
+    'screen and (max-width: 680px)': {
+      fontSize: '3.35rem',
+      lineHeight: '3.8rem',
+    },
+    'screen and (max-width: 530px)': {
+      fontSize: '2.35rem',
+      lineHeight: '2.8rem',
     },
   },
 })
@@ -137,19 +162,47 @@ export const featuresList = style({
   listStyle: 'none',
   padding: 0,
   margin: 0,
-  maxWidth: '900px',
+  width: '100%',
   textAlign: 'left',
 })
 
 export const featureItem = style({
-  fontSize: 'clamp(0.9rem, 1.5vw, 1.1rem)',
+  fontSize: '1.75rem',
   color: vars.color.text.primary,
-  marginBottom: vars.space.lg,
+  marginBottom: '0.1rem',
   display: 'flex',
   alignItems: 'center',
-  gap: vars.space.lg,
+  letterSpacing: '-1px',
+  gap: '18px',
   fontWeight: vars.font.weight.medium,
   fontFamily: vars.font.family.sans,
+  '@media': {
+    'screen and (max-width: 1620px)': {
+      fontSize: '1.65rem',
+      marginBottom: '0.2rem',
+    },
+    'screen and (max-width: 1150px)': {
+      fontSize: '1.55rem',
+      marginBottom: '0.3rem',
+    },
+    'screen and (max-width: 980px)': {
+      fontSize: '1.45rem',
+      marginBottom: '0.4rem',
+    },
+    'screen and (max-width: 840px)': {
+      fontSize: '1.35rem',
+      marginBottom: '0.5rem',
+    },
+    'screen and (max-width: 700px)': {
+      fontSize: '1.15rem',
+      marginBottom: '0.6rem',
+    },
+    'screen and (max-width: 590px)': {
+      fontSize: '1.05rem',
+      marginBottom: '0.7rem',
+      letterSpacing: '0',
+    },
+  },
 })
 
 export const featureIcon = style({
@@ -159,80 +212,10 @@ export const featureIcon = style({
   flexShrink: 0,
 })
 
-export const stepsContainer = style({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: vars.space.xl,
-  paddingLeft: vars.space['5xl'],
-  alignItems: 'stretch',
-  '@media': {
-    'screen and (max-width: 900px)': {
-      gridTemplateColumns: '1fr',
-      maxWidth: '600px',
-      margin: `0 auto ${vars.space['3xl']}`,
-    },
-  },
-})
-
-export const stepCard = style({
-  borderRadius: vars.radius.xl,
-  textAlign: 'center',
-  display: 'flex',
-  flexDirection: 'column',
-  height: '100%',
-  position: 'relative',
-  overflow: 'hidden',
-})
-
-export const stepBadge = style({
-  display: 'inline-block',
-  padding: `${vars.space.xs} 14px`,
-  backgroundColor: vars.color.background.accent.medium,
-  borderRadius: vars.radius.pill,
-  color: '#ffffff',
-  fontSize: vars.font.size.xs,
-  fontWeight: vars.font.weight.semibold,
-  textTransform: 'capitalize',
-  letterSpacing: '0.02em',
-  alignSelf: 'center',
-  flex: '0 0 auto',
-  fontFamily: vars.font.family.display,
-})
-
-export const stepIcon = style({
-  display: 'none',
-})
-
-export const stepTitle = style({
-  fontSize: vars.font.size.md,
-  fontWeight: vars.font.weight.semibold,
-  color: '#ffffff',
-  marginTop: vars.space.md,
-  marginBottom: vars.space.xl,
-  opacity: vars.opacity.almostOpaque,
-  flex: '0 0 auto',
-  fontFamily: vars.font.family.sans,
-})
-
-export const stepDescription = style({
-  fontSize: vars.font.size.base,
-  color: 'rgba(255, 255, 255, 0.9)',
-  lineHeight: vars.font.lineHeight.relaxed,
-  marginBottom: vars.space.lg,
-})
-
-export const stepSubtext = style({
-  fontSize: vars.font.size.sm,
-  color: 'rgba(255, 255, 255, 0.7)',
-  lineHeight: vars.font.lineHeight.normal,
-})
-
 export const ctaSection = style({
-  textAlign: 'center',
   animation: `${fadeIn} 0.8s ${vars.transition.easing.out} 0.6s backwards`,
-  flexShrink: 0,
-  paddingBottom: vars.space['2xl'],
-  paddingLeft: vars.space['5xl'],
+  marginTop: '2rem',
+  marginBottom: '3rem',
 })
 
 export const ctaButton = style({
@@ -249,63 +232,9 @@ export const ctaButton = style({
   fontFamily: vars.font.family.display,
 })
 
-export const exampleCard = style({
-  display: 'flex',
-  flex: '1',
-  flexDirection: 'column',
-  justifyContent: 'center',
-})
-
-export const exampleTitle = style({
-  fontSize: vars.font.size.md,
-  fontWeight: vars.font.weight.bold,
-  color: '#ffffff',
-  marginBottom: vars.space.sm,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  textAlign: 'center',
-  gap: vars.space.md,
-  fontFamily: vars.font.family.display,
-})
-
-export const exampleIcon = style({
-  width: vars.size.icon.md,
-  height: vars.size.icon.md,
-  filter:
-    'brightness(0) saturate(100%) invert(78%) sepia(21%) saturate(1095%) hue-rotate(175deg) brightness(96%) contrast(87%)',
-})
-
-export const exampleDetails = style({
-  fontSize: vars.font.size.sm,
-  color: 'rgba(255, 255, 255, 0.75)',
-  lineHeight: vars.font.lineHeight.normal,
-  fontFamily: vars.font.family.sans,
-})
-
-export const matchBadge = style({
-  display: 'inline-block',
-  padding: `${vars.space.xs} ${vars.space.lg}`,
-  borderRadius: vars.radius.sm,
-  color: '#ffffff',
-  lineHeight: vars.font.lineHeight.normal,
-  fontSize: vars.font.size.sm,
-  fontFamily: vars.font.family.sans,
-})
 export const mainContainer = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
   flex: 1,
-})
-
-export const exampleCardWrapper = style({
-  backgroundColor: vars.color.background.light.base,
-  border: `1px solid ${vars.color.border.light}`,
-  borderRadius: vars.radius.xl,
-  padding: `10px ${vars.space['2xl']}`,
-  backdropFilter: `blur(${vars.blur.lg})`,
-  display: 'flex',
-  flexDirection: 'column',
-  minHeight: '110px',
 })

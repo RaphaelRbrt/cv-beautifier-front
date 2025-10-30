@@ -3,6 +3,8 @@ import type { MessageEntry, MessageParams } from './types'
 export const ERRORS: Record<string, MessageEntry> = {
   // Auth / Login
   LOGIN_FAILED: 'Identifiants invalides',
+  LOGIN_TOKEN_MISSING: 'Erreur de connexion : réponse du serveur invalide. Veuillez réessayer.',
+  LOGIN_SERVER_ERROR: 'Erreur de connexion au serveur. Vérifiez votre connexion internet.',
   LOGIN_PASSWORD_TOO_LONG: 'Le mot de passe ne doit pas dépasser 72 caractères',
 
   // Home

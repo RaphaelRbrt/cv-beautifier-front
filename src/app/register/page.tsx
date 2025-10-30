@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useCallback, useTransition } from 'react'
+import type { FetchResult } from '@apollo/client'
 import { useRouter } from 'next/navigation'
 import { REGISTER } from '@/graphql'
 import { RegisterResponse, RegisterVariables, FieldErrors } from '@/types'
@@ -125,10 +126,33 @@ export default function Page() {
         setSubmitting(false)
         return
       }
-      const { data } = await client.mutate<RegisterResponse, RegisterVariables>({
+      const result: FetchResult<RegisterResponse> = await client.mutate<
+        RegisterResponse,
+        RegisterVariables
+      >({
         mutation: REGISTER,
         variables: { email: normalizedEmail, password: cleanedPassword },
+        errorPolicy: 'all', // Return errors instead of throwing
       })
+      const { data, errors } = result
+
+      // Check for GraphQL errors
+      if (errors && errors.length > 0) {
+        const errorMsg = errors[0]?.message || getErrorMessage('REGISTER_FAILED')
+        if (process.env.NODE_ENV === 'development') {
+          console.log('📛 GraphQL error detected:', errorMsg)
+        }
+        dispatch(
+          addError({
+            id: generateErrorId(),
+            message: errorMsg,
+            code: 'GRAPHQL_ERROR',
+            meta: { email: normalizedEmail, source: 'graphql', operation: 'register' },
+          })
+        )
+        setSubmitting(false)
+        return
+      }
       const token = data?.register.token
       if (!token) throw new Error('Missing token')
       const userId = data?.register.userId

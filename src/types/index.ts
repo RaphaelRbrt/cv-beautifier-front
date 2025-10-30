@@ -1,6 +1,6 @@
 // Auth types
 export type LoginResponse = {
-  login: { token: string }
+  login: { token: string; userId: number; email: string }
 }
 
 export type LoginVariables = { email: string; password: string; rememberMe?: boolean }

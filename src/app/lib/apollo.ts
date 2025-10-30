@@ -46,9 +46,31 @@ interface RefreshTokenResponse {
 const errorLink = onError((errorHandler) => {
   const { graphQLErrors, networkError, operation, forward } = errorHandler as {
     graphQLErrors?: readonly GraphQLError[]
-    networkError?: Error & { statusCode?: number }
+    networkError?: Error & { statusCode?: number; result?: unknown }
     operation: unknown
     forward: (operation: unknown) => Observable<unknown>
+  }
+
+  // Log all errors in development
+  if (process.env.NODE_ENV === 'development') {
+    if (graphQLErrors) {
+      graphQLErrors.forEach((error) => {
+        console.error('🔴 GraphQL Error:', {
+          message: error.message,
+          locations: error.locations,
+          path: error.path,
+          extensions: error.extensions,
+        })
+      })
+    }
+    if (networkError) {
+      console.error('🔴 Network Error:', {
+        message: networkError.message,
+        statusCode: networkError.statusCode,
+        result: networkError.result,
+        stack: networkError.stack,
+      })
+    }
   }
 
   const isUnauthorized =

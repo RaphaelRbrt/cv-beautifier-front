@@ -2,14 +2,13 @@ import { style } from '@vanilla-extract/css'
 import { vars } from '@/app/styles/tokens.css'
 
 export const ctaButton = style({
-  minWidth: '140px',
-  height: '29px',
-  padding: '0 20px',
+  height: '50px',
+  padding: '0 16px',
   backgroundColor: '#91C3EB',
   border: 'none',
-  borderRadius: '30px',
+  borderRadius: vars.radius.xl,
   color: '#F5FAFA',
-  fontSize: '0.95rem',
+  fontSize: '1.2rem',
   fontWeight: '700',
   cursor: 'pointer',
   boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
@@ -17,7 +16,8 @@ export const ctaButton = style({
   textAlign: 'center',
   display: 'inline-flex',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
+  gap: '10px',
   selectors: {
     '&:hover': {
       transform: 'translateY(-2px)',

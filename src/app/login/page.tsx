@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useCallback, useTransition } from 'react'
+import type { FetchResult } from '@apollo/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { LOGIN } from '@/graphql'
@@ -84,13 +85,83 @@ export default function Page() {
       setIsSubmitting(true)
 
       try {
-        const { data } = await client.mutate<LoginResponse, LoginVariables>({
+        // Log the request for debugging
+        if (process.env.NODE_ENV === 'development') {
+          console.log('🔐 Login request:', {
+            email,
+            rememberMe,
+            graphqlUri: process.env.NEXT_PUBLIC_GRAPHQL_URI || '/api/graphql',
+          })
+        }
+
+        const result: FetchResult<LoginResponse> = await client.mutate<
+          LoginResponse,
+          LoginVariables
+        >({
           mutation: LOGIN,
           variables: { email, password, rememberMe },
+          errorPolicy: 'all', // Return errors instead of throwing
         })
+        const { data, errors } = result
 
-        const token = data?.login.token
-        if (!token) throw new Error('Missing token')
+        // Log the response for debugging
+        if (process.env.NODE_ENV === 'development') {
+          console.log('📥 Login response:', { data, errors })
+        }
+
+        // Check for GraphQL errors
+        if (errors && errors.length > 0) {
+          // Use the actual GraphQL error message from backend
+          const errorMsg = errors[0]?.message || getErrorMessage('LOGIN_FAILED')
+
+          // Log for debugging
+          if (process.env.NODE_ENV === 'development') {
+            console.log('📛 GraphQL error detected:', errorMsg)
+          }
+
+          // Display the backend error message directly (don't remap with code)
+          dispatch(
+            addError({
+              id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+              message: errorMsg,
+              code: 'GRAPHQL_ERROR',
+              meta: {
+                email,
+                source: 'graphql',
+                operation: 'login',
+                graphqlErrors: errors,
+              },
+            })
+          )
+          setIsSubmitting(false)
+          return
+        }
+
+        // Check for missing data
+        if (!data || !data.login) {
+          reportError(getErrorMessage('LOGIN_SERVER_ERROR'), 'LOGIN_SERVER_ERROR', {
+            email,
+            source: 'api',
+            operation: 'login',
+            issue: 'no_data',
+          })
+          setIsSubmitting(false)
+          return
+        }
+
+        // Check for missing token
+        const token = data.login.token
+        if (!token) {
+          reportError(getErrorMessage('LOGIN_TOKEN_MISSING'), 'LOGIN_TOKEN_MISSING', {
+            email,
+            source: 'api',
+            operation: 'login',
+            issue: 'missing_token',
+            receivedData: data,
+          })
+          setIsSubmitting(false)
+          return
+        }
 
         dispatch(setToken(token))
 
@@ -99,6 +170,16 @@ export default function Page() {
           router.push('/analyse')
         })
       } catch (error) {
+        // Log the full error for debugging
+        if (process.env.NODE_ENV === 'development') {
+          console.error('🔴 Login exception:', {
+            error,
+            type: error instanceof Error ? error.constructor.name : typeof error,
+            message: error instanceof Error ? error.message : String(error),
+            apolloError: error as ApolloErrorLike,
+          })
+        }
+
         const graphQlMsg = extractErrorMessage(
           error as ApolloErrorLike,
           getErrorMessage('LOGIN_FAILED')
@@ -106,8 +187,10 @@ export default function Page() {
 
         reportError(graphQlMsg, 'LOGIN_FAILED', {
           email,
-          source: 'api',
+          source: 'exception',
           operation: 'login',
+          error: error instanceof Error ? error.message : 'Unknown error',
+          errorType: error instanceof Error ? error.constructor.name : typeof error,
         })
       } finally {
         setIsSubmitting(false)
