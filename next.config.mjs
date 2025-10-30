@@ -13,7 +13,7 @@ let nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: `${backendOrigin}/:path*`
+        destination: `${backendOrigin}/api/:path*`
       }
     ];
   },
@@ -30,7 +30,7 @@ let nextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https:",
               "font-src 'self' data:",
-              "connect-src 'self' https://raphaelrbr.com",
+              "connect-src 'self' https://raphaelrbr.com https://cv-beautifier.com",
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'"

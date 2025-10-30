@@ -13,9 +13,17 @@ RUN npm run build || yarn build
 FROM node:20-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
+
+# Create non-root user
+RUN addgroup -g 1000 -S appuser && \
+    adduser -u 1000 -S appuser -G appuser
+
+COPY --from=builder --chown=appuser:appuser /app/.next/standalone ./
+COPY --from=builder --chown=appuser:appuser /app/.next/static ./.next/static
+COPY --from=builder --chown=appuser:appuser /app/public ./public
+
+USER appuser
+
 EXPOSE 3000
 CMD ["node", "server.js"]
 
