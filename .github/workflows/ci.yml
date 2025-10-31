@@ -102,7 +102,7 @@ jobs:
           curl -sS -X POST ${VPS_SERVER}/deploy \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer ${WEBHOOK_TOKEN}" \
-            -d "{\"deployment\":\"cv-beautifier-front-deployment\",\"namespace\":\"staging\",\"restart\":true,\"environment\":\"staging\"}"
+            -d "{\"deployment\":\"cv-beautifier-front-staging\",\"namespace\":\"staging\",\"restart\":true,\"environment\":\"staging\"}"
           echo "✅ Staging deployment complete"
 
   deploy-production:
@@ -147,5 +147,5 @@ jobs:
           curl -sS -X POST ${VPS_SERVER}/deploy \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer ${WEBHOOK_TOKEN}" \
-            -d "{\"deployment\":\"cv-beautifier-front-deployment\",\"namespace\":\"production\",\"restart\":true,\"environment\":\"production\"}"
+            -d "{\"deployment\":\"cv-beautifier-front\",\"namespace\":\"production\",\"restart\":true,\"environment\":\"production\"}"
           echo "✅ Production deployment complete"
